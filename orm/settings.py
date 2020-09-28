@@ -1,3 +1,4 @@
+import os
 """
 Django settings for orm project.
 
@@ -54,8 +55,7 @@ ROOT_URLCONF = 'orm.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')]
-        ,
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

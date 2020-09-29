@@ -8,7 +8,6 @@ def test_db_exists():
         f"host='{settings.DATABASES['default']['HOST']}' password='{settings.DATABASES['default']['PASSWORD']}' "
         f"port={settings.DATABASES['default']['PORT']}'"
     )
-
     if connection is not None:
         connection.autocommit = True
 

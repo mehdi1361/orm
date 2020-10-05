@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'base.apps.BaseConfig',
 ]
 
 MIDDLEWARE = [
@@ -79,8 +80,8 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'test_orm_db',
         'USER': 'postgres',
-        'PASSWORD': '13610522',
-        'HOST': '193.37.213.206',
+        'PASSWORD': 'mirmohsen1367',
+        'HOST': '127.0.0.1',
         'PORT': '5432',
         'CONN_MAX_AGE': 60,
     }

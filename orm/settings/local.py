@@ -79,7 +79,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'test_orm_db',
         'USER': 'postgres',
-        'PASSWORD': '<<YOUR_PASSWORD>>',
+        'PASSWORD': 'mirmohsen1367',
         'HOST': 'localhost',
         'PORT': '5432',
         'CONN_MAX_AGE': 60,

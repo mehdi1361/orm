@@ -5,5 +5,3 @@ from .models import Category
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ('name', 'last_update')
     list_filter = ('last_update', )
-
-

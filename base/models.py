@@ -5,3 +5,13 @@ class Base(models.Model):
 
     class Meta:
         abstract = True
+
+class Category(Base):
+    name = models.CharField(max_length=50)
+    last_update = models.DateTimeField()
+
+    class Meta:
+        ordering = ['last_update']
+
+    def __str__(self):
+        return self.name

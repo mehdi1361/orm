@@ -17,3 +17,13 @@ class Category(Base):
 
     def __str__(self):
         return self.name
+
+class Language(Base):
+    name = models.CharField(max_length=50)
+    last_update = models.DateField()
+
+    class Meta:
+        ordering = ['last_update']
+
+    def __str__(self):
+        return self.name

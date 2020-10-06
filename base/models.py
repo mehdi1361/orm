@@ -36,3 +36,14 @@ class Country(Base):
 
     class Meta:
         ordering = ['last_update']
+
+class City(Base):
+    city = models.CharField(max_length=50)
+    last_update = models.DateField()
+    country = models.ForeignKey(Country, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.city
+
+    class Meta:
+        ordering = ['last_update']

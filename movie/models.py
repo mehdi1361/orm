@@ -29,3 +29,16 @@ class Film(Base):
 
     def __str__(self):
         return self.title
+
+
+class Actor(Base):
+    first_name = models.CharField(max_length=100)
+    last_name = models.CharField(max_length=100)
+    last_update = models.DateTimeField()
+
+    class Meta:
+        db_table = "movie_actor"
+        ordering = ["last_update"]
+
+    def __str__(self):
+        return f"{self.first_name}{self.last_name}"

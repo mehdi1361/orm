@@ -35,6 +35,7 @@ class Actor(Base):
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
     last_update = models.DateTimeField()
+    film = models.ManyToManyField(Film, through="FilmActor")
 
     class Meta:
         db_table = "movie_actor"
@@ -42,3 +43,13 @@ class Actor(Base):
 
     def __str__(self):
         return f"{self.first_name}{self.last_name}"
+
+
+class FilmActor(models.Model):
+    film = models.ForeignKey(Film, on_delete=models.CASCADE)
+    actor = models.ForeignKey(Actor, on_delete=models.CASCADE)
+    last_update = models.DateTimeField()
+
+    class Meta:
+        db_table = "movie_film_actor"
+        ordering = ["last_update"]

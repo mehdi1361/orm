@@ -1,7 +1,7 @@
 from django.db import models
 from base.models import Base, Language
 import tsvector_field
-from datetime import datetime
+from django.utils import timezone
 
 class Film(Base):
     YEAR_IN_SCHOOL_CHOICES = [('R', 'R'), ('PG-13', 'PG-13'), ('NC-17', 'NC-17')]
@@ -20,8 +20,8 @@ class Film(Base):
     cover = models.ImageField(upload_to='media/cover', null=True)
 
     def save(self, *args, **kwargs):
-        if self.last_update is None:
-            self.last_update = datetime.now()
+        self.last_update = timezone.now()
+        super(Film, self).save(*args, **kwargs)
 
     class Meta:
         db_table = 'movie_film'

@@ -1,5 +1,5 @@
 from django.db import models
-from base.models import Base, Language
+from base.models import Base, Language, Category
 import tsvector_field
 from django.utils import timezone
 
@@ -18,6 +18,7 @@ class Film(Base):
     special_features = models.TextField()
     fulltext = tsvector_field.SearchVectorField()
     cover = models.ImageField(upload_to='media/cover', null=True)
+    category = models.ManyToManyField(Category, through="FilmCategory")
 
     def save(self, *args, **kwargs):
         self.last_update = timezone.now()
@@ -44,7 +45,6 @@ class Actor(Base):
     def __str__(self):
         return f"{self.first_name}{self.last_name}"
 
-
 class FilmActor(models.Model):
     film = models.ForeignKey(Film, on_delete=models.CASCADE)
     actor = models.ForeignKey(Actor, on_delete=models.CASCADE)
@@ -52,4 +52,14 @@ class FilmActor(models.Model):
 
     class Meta:
         db_table = "movie_film_actor"
+        ordering = ["last_update"]
+
+
+class FilmCategory(models.Model):
+    category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    film = models.ForeignKey(Film, on_delete=models.CASCADE)
+    last_update = models.DateTimeField()
+
+    class Meta:
+        db_table = "movie_film_category"
         ordering = ["last_update"]

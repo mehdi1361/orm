@@ -2,6 +2,7 @@ from django.db import models
 from base.models import Base, City
 from django.contrib.auth.models import User
 from user.validator import phone_validator
+from movie.models import Film
 
 class Address(Base):
     address = models.CharField(max_length=150)
@@ -49,3 +50,17 @@ class Phone(Base):
 
 class Cart(Base):
     sequence_name = models.CharField(max_length=100)
+    film = models.ManyToManyField(Film, through="CartFilm")
+
+
+class CartFilm(Base):
+    film = models.ForeignKey(Film, on_delete=models.CASCADE)
+    cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
+    quantity = models.IntegerField()
+
+    class Meta:
+        db_table = "movie_cart_film"
+        ordering = ["quantity"]
+
+    def __str__(self):
+        return self.quantity

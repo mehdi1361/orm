@@ -1,7 +1,7 @@
 from django.db import models
 from base.models import Base, City
-from django.contrib.auth.models import User
 from user.validator import phone_validator
+from django.contrib.auth.models import User
 
 class Address(Base):
     address = models.CharField(max_length=150)
@@ -21,28 +21,20 @@ class Address(Base):
 class Phone(Base):
 
     PHONE_TYPE_CHOICE = [
-        ("phone", "mobile")
+        ("MOBILE", "mobile"),
+        ("PHONE", "phone"),
     ]
 
-    phone_number = models.CharField(max_length=50, validators=[phone_validator])
+    phone_number = models.CharField(max_length=50, validators=[phone_validator, ])
     is_active = models.BooleanField()
     phone_type = models.CharField(max_length=150, choices=PHONE_TYPE_CHOICE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
 
     def save(self, *args, **kwargs):
-        if self.phone_number.startswith("092"):
-            Phone.phone_number = "phone"
-            super(Phone, self).save(*args, **kwargs)
+        if self.phone_number[:3] in ["090", "091", "092", "093"]:
+            Phone.phone_number = "PHONE"
 
-        elif self.phone_number.startswith("091"):
-            Phone.phone_number = "phone"
-            super(Phone, self).save(*args, **kwargs)
-
-        elif self.phone_number.startswith("090"):
-            Phone.phone_number = "phone"
-            super(Phone, self).save(*args, **kwargs)
-
-        elif self.phone_number.startswith("093"):
-            Phone.phone_number = "phone"
-            super(Phone, self).save(*args, **kwargs)
         else:
-            raise ("the not phone number format")
+
+            Phone.phone_number = "phone"
+        super(Phone, self).save(*args, **kwargs)

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from user.models import Address, Phone, CartFilm
+from user.models import Address, Phone, CartFilm, Sms
 
 
 @admin.register(Address)
@@ -16,3 +16,8 @@ class PhoneAdmin(admin.ModelAdmin):
 class CartFilmAdmin(admin.ModelAdmin):
     list_display = ('film', 'cart', 'quantity')
     list_filter = ('quantity', )
+
+@admin.register(Sms)
+class SmsAdmin(admin.ModelAdmin):
+    list_display = ("message",)
+    list_filter = ("message",)

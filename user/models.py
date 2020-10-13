@@ -1,5 +1,5 @@
 from django.db import models
-from base.models import Base, City
+from base.models import Base, City, Template
 from user.validator import phone_validator
 from django.contrib.auth.models import User
 from movie.models import Film
@@ -31,6 +31,7 @@ class Phone(Base):
     is_active = models.BooleanField()
     phone_type = models.CharField(max_length=150, choices=PHONE_TYPE_CHOICE)
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    template = models.ManyToManyField(Template, through='Sms')
 
     def save(self, *args, **kwargs):
         if self.phone_number[:3] in ["090", "091", "092", "093"]:
@@ -57,3 +58,12 @@ class CartFilm(Base):
 
     def __str__(self):
         return self.quantity
+
+class Sms(Base):
+    state_choices = [
+        ("DRAFT", "draft"),
+        ("SEND", "send"),
+    ]
+    message = models.CharField(max_length=150, choices=state_choices)
+    phone = models.ForeignKey(Phone, on_delete=models.CASCADE)
+    template = models.ForeignKey(Template, on_delete=models.CASCADE)

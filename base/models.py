@@ -47,3 +47,10 @@ class City(Base):
 
     class Meta:
         ordering = ['last_update']
+
+
+class Template(Base):
+    template = models.CharField(max_length=1500)
+
+    def __str__(self):
+        return self.template

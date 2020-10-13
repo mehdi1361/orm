@@ -57,4 +57,3 @@ class CartFilm(Base):
 
     def __str__(self):
         return self.quantity
-

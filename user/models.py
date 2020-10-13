@@ -46,3 +46,6 @@ class Phone(Base):
             super(Phone, self).save(*args, **kwargs)
         else:
             raise ("the not phone number format")
+
+class Cart(Base):
+    sequence_name = models.CharField(max_length=100)

@@ -1,6 +1,7 @@
 from django.contrib import admin
 from .models import Category, Language, Country, City, Template
 
+
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ('name', 'last_update')
@@ -17,6 +18,7 @@ class LanguageAdmin(admin.ModelAdmin):
 class CountryAdmin(admin.ModelAdmin):
     list_display = ('country', 'last_update')
     list_filter = ('last_update', )
+
 
 @admin.register(City)
 class CityAdmin(admin.ModelAdmin):

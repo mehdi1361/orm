@@ -1,6 +1,5 @@
 stages:
   - Static Analysis
-  - Test
 
 variables:
     GIT_STRATEGY: clone
@@ -14,8 +13,8 @@ cache:
 
 
 
-test:
-  stage: Static Analysis and test
+flake8:
+  stage: Static Analysis
 
   image: centos
   script:

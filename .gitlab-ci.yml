@@ -1,16 +1,16 @@
 stages:
   - Static Analysis
   - Test
+
+variables:
+    GIT_STRATEGY: clone
+    PIP_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pip"
 before_script:
-  - export PATH=$PATH:/usr/local/bin
-  variables:
-      GIT_STRATEGY: clone
-      PIP_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pip"
-      before_script:
-        - mkdir -p .cache/pip
-      cache:
-        paths:
-          - .cache/pip
+    - mkdir -p .cache/pip
+    - export PATH=$PATH:/usr/local/bin
+cache:
+    paths:
+      - .cache/pip
 
 
 

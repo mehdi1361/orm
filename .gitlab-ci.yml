@@ -1,6 +1,8 @@
 stages:
   - Static Analysis
   - Test
+before_script:
+  - export PATH=$PATH:/usr/local/bin
 
 
 flake8:

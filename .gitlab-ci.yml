@@ -7,7 +7,7 @@ before_script:
 
 flake8:
   stage: Static Analysis
-  image: centos:latest
+  image: centos
   script:
     - /usr/bin/yum install python3.8 -y
     - /usr/bin/yum install python3-pip -y

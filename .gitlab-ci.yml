@@ -7,17 +7,17 @@ before_script:
 
 flake8:
   stage: Static Analysis
-  image: ubuntu
+#  image: ubuntu
   script:
-    - apt install python3.8 -y
-    - apt install python3-pip -y
+    - yum install python3.8 -y
+    - yum install python3-pip -y
     - python3 --version
     - pip3 install -r requirements.txt
     - flake8
 
 pytest:
   stage: Test
-  image: centos
+#  image: centos
   script:
     - yum install python3.8 -y
     - yum install python3-pip -y

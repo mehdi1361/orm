@@ -1,0 +1,117 @@
+@startuml
+skinparam linetype ortho
+class Base {
+  +Datetime created_date
+  +DateTime updated_date
+}
+
+class Category {
+   +CharField name (length=50)
+   +DateTime last_update
+}
+
+class Language {
+   +CharField name (length=50)
+   +DateTime last_update
+}
+
+class Country {
+   +CharField name
+   +DateTime last_update
+   ‍+String str()
+}
+class City {
+   +CharField city (length=50)
+   +DateTime last_update
+}
+class Film {
+   +CharField title
+   +Text description
+   +smallInteger release_year
+   +smallInteger rental_duration
+   +decimal rental_rate
+   +smallInteger length
+   +decimal replacement_cost
+   +char rating
+   +datetime last_update
+   +text special_features
+   +tsvector fulltext
+   +image cover
+   +save() override save
+}
+class Actor {
+   +CharField first_name (length=50)
+   +CharField last_name (length=50)
+   +DateTime last_update
+}
+class FilmActor {
+   +int actor_id
+   +int film_id
+   +DateTime last_update
+}
+class FilmCategory {
+   +int category_id
+   +int film_id
+   +DateTime last_update
+}
+class Cart {
+   +CharField sequence_name
+}
+
+class CartFilm {
+   +Film film
+   +Cart cart
+   +integer quantity
+}
+class Phone {
+  +CharField phone_number
+
+  +Bool is_active
+  +CharField phone_type choice=['phone', 'mobile']
+  +Void save() "override save for check phone_type id mobile or not"
+}
+
+
+
+class DjangoAuthUser {
+
+}
+
+
+class Address {
+  +CharField address
+  +User user
+  +City city
+  +CharField district
+  +integer postal_code
+}
+
+
+Base <|-left-City
+Base <|-down-Address
+City||--o{ Address
+DjangoAuthUser||--o{ Address
+Base <|-left-Phone
+DjangoAuthUser||--o{ Phone
+class Category extends Base
+class Language extends Base
+class Country extends Base
+class City extends Base
+class Film extends Base
+class Actor extends Base
+class Cart extends Base
+class CartFilm extends Base
+
+
+Country ||--o{ City
+Language ||--o{ Film
+Film ||--o{ FilmActor
+Actor ||--o{ FilmActor
+Film ||--o{ FilmCategory
+Category ||--o{ FilmCategory
+
+Film ||--o{ CartFilm
+Cart ||--o{ CartFilm
+
+
+@enduml

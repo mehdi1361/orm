@@ -40,8 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'movie.apps.MovieConfig',
     'user.apps.UserConfig',
-    'rest_framework'
-    'api_v1.apps.Api_v1Config',
+    'rest_framework',
+    'api_v1.apps.ApiV1Config',
 ]
 
 MIDDLEWARE = [

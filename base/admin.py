@@ -30,3 +30,4 @@ class CityAdmin(admin.ModelAdmin):
 class TemplateAdmin(admin.ModelAdmin):
     list_display = ('template',)
     list_filter = ('template',)
+

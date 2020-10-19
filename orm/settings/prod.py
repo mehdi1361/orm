@@ -41,6 +41,9 @@ INSTALLED_APPS = [
     'base.apps.BaseConfig',
     'movie.apps.MovieConfig',
     'user.apps.UserConfig',
+    'rest_framework',
+    'api_v1.apps.ApiV1Config',
+
 ]
 
 MIDDLEWARE = [

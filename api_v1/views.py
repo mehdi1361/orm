@@ -7,6 +7,6 @@ from rest_framework import status
 @api_view()
 def get_date(request):
 
-    data = { 'message':datetime.now()}
+    data = {'message': datetime.now()}
     serializer = DateSerializer(data)
     return Response(serializer.data, status=status.HTTP_200_OK)

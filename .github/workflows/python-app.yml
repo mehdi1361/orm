@@ -11,6 +11,16 @@ on:
     branches: [ master ]
 
 jobs:
+  sonarQubeTrigger:
+    name: SonarQube Trigger
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - name: SonarQube Scan
+      uses: kitabisa/sonarqube-action@master
+      with:
+        host: http://193.37.213.206:9000 
+        login: 6184d1fa315d1f4f6ff1e7f8d7347d36e6884ddd
   build:
 
     runs-on: ubuntu-latest

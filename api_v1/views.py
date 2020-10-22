@@ -5,7 +5,7 @@ from .seriailizers.base_serializer import DateSerializer
 from rest_framework import status
 from base.models import Country
 from api_v1.seriailizers.base_serializer import CountrySerializer
-
+from django.http import HttpResponse
 
 @api_view()
 def get_date(request):
@@ -20,7 +20,11 @@ def list_country(request):
     return Response(s.data, status=status.HTTP_200_OK,)
 
 @api_view()
-def get_country(request):
-    c = Country.objects.get(country='Iran', id=46)
-    s = CountrySerializer(c)
-    return Response(s.data, status=status.HTTP_200_OK,)
+
+def get_country(request, pk):
+    try:
+        c = Country.objects.get(pk=pk)
+        s = CountrySerializer(c)
+        return Response(s.data, status=status.HTTP_200_OK,)
+    except:
+        HttpResponse(status=404)

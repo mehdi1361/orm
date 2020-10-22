@@ -20,7 +20,7 @@ def list_country(request):
     return Response(s.data, status=status.HTTP_200_OK,)
 
 @api_view()
-def get_country(request):
-    c = Country.objects.get(country='Iran', id=46)
+def get_country(request, pk):
+    c = Country.objects.get(pk=pk)
     s = CountrySerializer(c)
     return Response(s.data, status=status.HTTP_200_OK,)

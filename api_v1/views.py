@@ -18,3 +18,9 @@ def list_country(request):
     c = Country.objects.all()
     s = CountrySerializer(c, many=True)
     return Response(s.data, status=status.HTTP_200_OK,)
+
+@api_view()
+def get_country(request):
+    c = Country.objects.get(country='Iran', id=46)
+    s = CountrySerializer(c)
+    return Response(s.data, status=status.HTTP_200_OK,)

@@ -5,7 +5,7 @@ from .seriailizers.base_serializer import DateSerializer
 from rest_framework import status
 from base.models import Country
 from api_v1.seriailizers.base_serializer import CountrySerializer
-from django.http import JsonResponse
+
 
 @api_view()
 def get_date(request):
@@ -17,4 +17,4 @@ def get_date(request):
 def list_country(request):
     c = Country.objects.all()
     s = CountrySerializer(c, many=True)
-    return JsonResponse(s.data, status=status.HTTP_200_OK, safe=False)
+    return Response(s.data, status=status.HTTP_200_OK,)

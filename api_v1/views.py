@@ -25,5 +25,6 @@ def get_country(request, pk):
         c = Country.objects.get(pk=pk)
         s = CountrySerializer(c)
         return Response(s.data, status=status.HTTP_200_OK,)
-    except:
+
+    except Country.DoesNotExist:
         return Response(status=404)

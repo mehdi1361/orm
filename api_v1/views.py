@@ -3,9 +3,10 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .seriailizers.base_serializer import DateSerializer
 from rest_framework import status
-from base.models import Country, City
+from base.models import Country, City, Category
 from api_v1.seriailizers.base_serializer import CountrySerializer, CitySerializer
-from api_v1.seriailizers.base_serializer import CityCountrserializer
+from api_v1.seriailizers.base_serializer import CityCountrserializer, CategorySerializer
+
 
 @api_view()
 def get_date(request):
@@ -47,3 +48,9 @@ def get_city_country(request, country):
         return Response(s.data, status=status.HTTP_200_OK)
     except City.DoesNotExist:
         return Response(status=404)
+
+@api_view()
+def list_category(request):
+    c = Category.objects.all()
+    s = CategorySerializer(c, many=True)
+    return Response(s.data, status=status.HTTP_200_OK)

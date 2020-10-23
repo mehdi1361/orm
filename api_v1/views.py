@@ -54,4 +54,3 @@ def list_category(request):
     c = Category.objects.all()
     s = CategorySerializer(c, many=True)
     return Response(s.data, status=status.HTTP_200_OK)
-

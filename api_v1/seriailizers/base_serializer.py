@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from base.models import Country
-from base.models import City
+from base.models import City, Category
+
 
 class DateSerializer(serializers.Serializer):
     message = serializers.DateTimeField()
@@ -21,3 +22,8 @@ class CityCountrserializer(serializers.ModelSerializer):
     class Meta:
         model = City
         fields = ['id', 'city']
+
+class CategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Category
+        fields = ["id", "name"]

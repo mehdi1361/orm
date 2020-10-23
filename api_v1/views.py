@@ -21,6 +21,7 @@ def list_country(request):
 
 @api_view()
 def get_country(request, pk):
+
     try:
         c = Country.objects.get(pk=pk)
         s = CountrySerializer(c)

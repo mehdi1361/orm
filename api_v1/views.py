@@ -30,7 +30,6 @@ def get_country(request, pk):
     except Country.DoesNotExist:
         return Response(status=404)
 
-
 @api_view()
 def get_city(request, pk):
     try:

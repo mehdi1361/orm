@@ -8,5 +8,6 @@ urlpatterns = [
     path('api/v1/base/city/<int:pk>', views.get_city),
     path('api/v1/base/cities/<slug:country>', views.get_city_country),
     path('api/v1/base/category/', views.list_category),
-
+    path('api/v1/base/language', views.list_language),
+    path('api/v1/base/language/<int:pk>', views.get_language)
 ]

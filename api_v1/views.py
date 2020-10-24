@@ -6,7 +6,8 @@ from rest_framework import status
 from base.models import Country, City, Category
 from api_v1.seriailizers.base_serializer import CountrySerializer, CitySerializer
 from api_v1.seriailizers.base_serializer import CityCountrserializer, CategorySerializer
-
+from base.models import Language
+from api_v1.seriailizers.base_serializer import LanguageSerializer
 
 @api_view()
 def get_date(request):
@@ -54,3 +55,18 @@ def list_category(request):
     c = Category.objects.all()
     s = CategorySerializer(c, many=True)
     return Response(s.data, status=status.HTTP_200_OK)
+
+@api_view()
+def list_language(request):
+    c = Language.objects.all()
+    s = LanguageSerializer(c, many=True)
+    return Response(s.data, status=status.HTTP_200_OK)
+
+@api_view()
+def get_language(request, pk):
+    try:
+        c = Language.objects.get(pk=pk)
+        s = LanguageSerializer(c)
+        return Response(s.data, status=status.HTTP_200_OK)
+    except Language.DoesNotExist:
+        return Response(status=404)

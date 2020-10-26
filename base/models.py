@@ -7,7 +7,14 @@ class Base(models.Model):
     class Meta:
         abstract = True
 
-class Category(Base):
+class LocalConf(models.Model):
+    fa_name = models.CharField(max_length=50, null=True)
+
+    class Meta:
+        abstract = True
+
+
+class Category(Base, LocalConf):
     name = models.CharField(max_length=50)
     last_update = models.DateTimeField()
 
@@ -17,7 +24,7 @@ class Category(Base):
     def __str__(self):
         return self.name
 
-class Language(Base):
+class Language(Base, LocalConf):
     name = models.CharField(max_length=50)
     last_update = models.DateField()
 
@@ -27,7 +34,7 @@ class Language(Base):
     def __str__(self):
         return self.name
 
-class Country(Base):
+class Country(Base, LocalConf):
     country = models.CharField(max_length=100)
     last_update = models.DateField()
 
@@ -37,7 +44,7 @@ class Country(Base):
     class Meta:
         ordering = ['last_update']
 
-class City(Base):
+class City(Base, LocalConf):
     city = models.CharField(max_length=50)
     last_update = models.DateField()
     country = models.ForeignKey(Country, on_delete=models.CASCADE)

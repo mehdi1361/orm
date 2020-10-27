@@ -8,9 +8,11 @@ class DateSerializer(serializers.Serializer):
 
 
 class CountrySerializer(serializers.ModelSerializer):
+    citys = serializers.StringRelatedField(many=True)
+
     class Meta:
         model = Country
-        fields = ['id', 'country']
+        fields = ['id', 'country', 'citys']
 
 
 class CitySerializer(serializers.ModelSerializer):

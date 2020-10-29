@@ -14,11 +14,12 @@ class CitySerializer(serializers.ModelSerializer):
 
 
 class CountrySerializer(serializers.ModelSerializer):
+
     cities = CitySerializer(many=True)
+
     class Meta:
         model = Country
         fields = ['id', 'country', 'cities']
-
 
 
 class CityCountrserializer(serializers.ModelSerializer):

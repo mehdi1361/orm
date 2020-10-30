@@ -7,20 +7,23 @@ class DateSerializer(serializers.Serializer):
     message = serializers.DateTimeField()
 
 
-class CountrySerializer(serializers.ModelSerializer):
-    citys = serializers.StringRelatedField(many=True)
-
-    class Meta:
-        model = Country
-        fields = ['id', 'country', 'citys']
-
-
 class CitySerializer(serializers.ModelSerializer):
     class Meta:
         model = City
         fields = ['id', 'city']
 
+
+class CountrySerializer(serializers.ModelSerializer):
+
+    cities = CitySerializer(many=True)
+
+    class Meta:
+        model = Country
+        fields = ['id', 'country', 'cities']
+
+
 class CityCountrserializer(serializers.ModelSerializer):
+
     class Meta:
         model = City
         fields = ['id', 'city']

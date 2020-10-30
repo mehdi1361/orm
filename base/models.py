@@ -47,7 +47,7 @@ class Country(Base, LocalConf):
 class City(Base, LocalConf):
     city = models.CharField(max_length=50)
     last_update = models.DateField()
-    country = models.ForeignKey(Country, on_delete=models.CASCADE)
+    country = models.ForeignKey(Country, related_name='cities', on_delete=models.CASCADE)
 
     def __str__(self):
         return self.city

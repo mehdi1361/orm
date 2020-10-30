@@ -1,6 +1,5 @@
 from django.db import models
 from base.models import Base, Language, Category
-import tsvector_field
 from django.utils import timezone
 
 class Film(Base):
@@ -19,7 +18,6 @@ class Film(Base):
     category = models.ManyToManyField(Category, through="FilmCategory")
     fa_title = models.CharField(max_length=100, null=True)
     fa_description = models.TextField(null=True)
-
 
     def save(self, *args, **kwargs):
         self.last_update = timezone.now()

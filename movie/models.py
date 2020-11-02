@@ -1,6 +1,7 @@
 from django.db import models
 from base.models import Base, Language, Category
 from django.utils import timezone
+from django.db import connection
 
 class Film(Base):
     RATING_CHOICES = [('R', 'R'), ('PG-13', 'PG-13'), ('NC-17', 'NC-17')]
@@ -31,6 +32,11 @@ class Film(Base):
     def __str__(self):
         return self.title
 
+    @classmethod
+    def truncate(cls):
+        with connection.cursor() as cursor:
+            cursor.execute('TRUNCATE TABLE {} CASCADE'.format(cls._meta.db_table))
+
 
 class Actor(Base):
     first_name = models.CharField(max_length=100)
@@ -45,6 +51,11 @@ class Actor(Base):
     def __str__(self):
         return f"{self.first_name}{self.last_name}"
 
+    @classmethod
+    def truncate(cls):
+        with connection.cursor() as cursor:
+            cursor.execute('TRUNCATE TABLE {} CASCADE'.format(cls._meta.db_table))
+
 class FilmActor(models.Model):
     film = models.ForeignKey(Film, on_delete=models.CASCADE)
     actor = models.ForeignKey(Actor, on_delete=models.CASCADE)
@@ -53,6 +64,11 @@ class FilmActor(models.Model):
     class Meta:
         db_table = "movie_film_actor"
         ordering = ["last_update"]
+
+    @classmethod
+    def truncate(cls):
+        with connection.cursor() as cursor:
+            cursor.execute('TRUNCATE TABLE {} CASCADE'.format(cls._meta.db_table))
 
 
 class FilmCategory(models.Model):
@@ -63,3 +79,8 @@ class FilmCategory(models.Model):
     class Meta:
         db_table = "movie_film_category"
         ordering = ["last_update"]
+
+    @classmethod
+    def truncate(cls):
+        with connection.cursor() as cursor:
+            cursor.execute('TRUNCATE TABLE {} CASCADE'.format(cls._meta.db_table))

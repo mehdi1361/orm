@@ -9,5 +9,5 @@ class FilmAdmin(admin.ModelAdmin):
 
 @admin.register(Actor)
 class ActorAdmin(admin.ModelAdmin):
-    list_display = ('first_name', 'last_name',)
+    list_display = ('name', )
     list_filter = ('last_update', )

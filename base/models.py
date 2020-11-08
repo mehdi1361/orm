@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils import timezone
 
 class Base(models.Model):
     created_date = models.DateTimeField(verbose_name='created date', auto_now_add=True, null=True)
@@ -15,8 +16,12 @@ class LocalConf(models.Model):
 
 
 class Category(Base, LocalConf):
-    name = models.CharField(max_length=50)
+    name = models.CharField(max_length=50, unique=True)
     last_update = models.DateTimeField()
+
+    def save(self, *args, **kwargs):
+        self.last_update = timezone.now()
+        super(Category, self).save(*args, **kwargs)
 
     class Meta:
         ordering = ['last_update']

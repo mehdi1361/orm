@@ -42,7 +42,9 @@ INSTALLED_APPS = [
     'user.apps.UserConfig',
     'rest_framework',
     'api_v1.apps.ApiV1Config',
+    'server_side.apps.ServerSideConfig',
 ]
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from base.models import Country
 from base.models import City, Category, Language
+from movie.models import Director
 
 
 class DateSerializer(serializers.Serializer):
@@ -37,3 +38,8 @@ class LanguageSerializer(serializers.ModelSerializer):
     class Meta:
         model = Language
         fields = ["id", "name"]
+
+class DirectorSerilaizer(serializers.ModelSerializer):
+    class Meta:
+        model = Director
+        fields = ['id', 'name']

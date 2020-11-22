@@ -14,9 +14,10 @@ class FilmCategorySerializer(serializers.HyperlinkedModelSerializer):
 class FilmSerializer(serializers.ModelSerializer):
     categores = FilmCategorySerializer(source='filmcategory_set', many=True)
     language_name = serializers.CharField(source='language.name')
+    director_name = serializers.CharField(source='director.name')
 
     class Meta:
         model = Film
         fields = ['title', 'description', 'release_year',
-                  'rental_duration', 'rental_rate', 'length',
+                  'rental_duration', 'rental_rate', 'length', 'director_name',
                   'replacement_cost', 'rating', 'cover', 'language_name', 'fa_title', 'categores']

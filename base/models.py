@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils import timezone
+# from movie.models import FilmCategory
 
 class Base(models.Model):
     created_date = models.DateTimeField(verbose_name='created date', auto_now_add=True, null=True)

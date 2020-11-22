@@ -8,6 +8,9 @@ from api_v1.seriailizers.base_serializer import CountrySerializer, CitySerialize
 from api_v1.seriailizers.base_serializer import CityCountrserializer, CategorySerializer
 from base.models import Language
 from api_v1.seriailizers.base_serializer import LanguageSerializer
+from movie.models import Film
+from api_v1.seriailizers.movie_serializer import FilmSerializer
+
 
 @api_view()
 def get_date(request):
@@ -70,3 +73,11 @@ def get_language(request, pk):
         return Response(s.data, status=status.HTTP_200_OK)
     except Language.DoesNotExist:
         return Response(status=404)
+
+@api_view(['GET'])
+def get_film(request, page):
+    f = (page-1) * 30
+    d = page * 30
+    query_set = Film.objects.all()[f:d]
+    s = FilmSerializer(query_set, many=True)
+    return Response(s.data, status=status.HTTP_200_OK)

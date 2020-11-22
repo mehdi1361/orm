@@ -7,7 +7,7 @@ const App = {
     route: function() {
         switch (window.location.hash) {
             case "#home":
-                // initController.init();
+                initController.init();
                 // break
             default:
                 console.log("exit...");

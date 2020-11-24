@@ -10,5 +10,6 @@ urlpatterns = [
     path('base/category/', views.list_category),
     path('base/language', views.list_language),
     path('base/language/<int:pk>', views.get_language),
-    path('movie/film/<int:page>', views.get_film)
+    path('movie/film/<int:page>', views.get_film),
+    path('movie/actor/film/<int:pk>/<int:page>', views.get_film_actor)
 ]

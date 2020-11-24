@@ -81,3 +81,15 @@ def get_film(request, page):
     query_set = Film.objects.all()[f:d]
     s = FilmSerializer(query_set, many=True)
     return Response(s.data, status=status.HTTP_200_OK)
+
+
+@api_view(['GET'])
+def get_film_actor(request, pk, page):
+    f = (page-1) * 30
+    d = page * 30
+    query_set = Film.objects.filter(filmactor=pk)[f:d]
+    if query_set.exists():
+        s = FilmSerializer(query_set, many=True)
+        return Response(s.data, status=status.HTTP_200_OK)
+    else:
+        return Response(status=404)

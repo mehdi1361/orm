@@ -87,4 +87,8 @@ def get_film_category(request, pk, page):
     f = (page - 1) * 30
     d = page * 30
     query_set = Film.objects.filter(filmcategory=pk)[f:d]
-    # if query_set.
+    if query_set.exists():
+        s = FilmSerializer(query_set, many=True)
+        return Response(s.data, status=status.HTTP_200_OK)
+    else:
+        Response(status=404)

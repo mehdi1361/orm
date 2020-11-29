@@ -24,7 +24,7 @@ class FilmSerializer(serializers.ModelSerializer):
     categores = FilmCategorySerializer(source='filmcategory_set', many=True)
     language_name = serializers.CharField(source='language.name')
     director_name = serializers.CharField(source='director.name')
-    actor_name = FilmActorSerializer(source='filmactor_set')
+    actor_name = FilmActorSerializer(source='filmactor_set', many=True)
 
     class Meta:
         model = Film

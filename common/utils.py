@@ -68,26 +68,30 @@ class Bing:
 
     def __find_links(self):
         while len(self.__links) < self.limit:
-            request_url = (
-                f"https://www.bing.com/images/async?q="
-                f"{urllib.parse.quote_plus(self.query)}&first={str(self.page_counter)}&count={str(self.limit)}&adlt="
-                f"{'on' if self.adult else 'off'}&qft={self.filters}"
-            )
+            try:
+                request_url = (
+                    f"https://www.bing.com/images/async?q="
+                    f"{urllib.parse.quote_plus(self.query)}&first={str(self.page_counter)}&count={str(self.limit)}&adlt="
+                    f"{'on' if self.adult else 'off'}&qft={self.filters}"
+                )
 
-            request = urllib.request.Request(request_url, None, headers=self.headers)
-            response = urllib.request.urlopen(request)
-            html = response.read().decode('utf8')
-            for item in re.findall('murl&quot;:&quot;(.*?)&quot;', html):
-                try:
-                    r = requests.get(item, timeout=10)
-                    if r.status_code == 200 and not self.__find_similar_link(item):
-                        if len(self.__links) >= self.limit:
-                            return
-                        self.__links.append(item)
-                except Exception as e:
-                    raise e
+                request = urllib.request.Request(request_url, None, headers=self.headers)
+                response = urllib.request.urlopen(request)
+                html = response.read().decode('utf8')
+                for item in re.findall('murl&quot;:&quot;(.*?)&quot;', html):
+                    try:
+                        r = requests.get(item, timeout=1)
+                        if r.status_code == 200 and not self.__find_similar_link(item):
+                            if len(self.__links) >= self.limit:
+                                return
+                            self.__links.append(item)
+                    except Exception as e:
+                        pass
 
-            self.page_counter += 1
+                self.page_counter += 1
+
+            except Exception as e:
+                pass
 
     def __find_similar_link(self, link):
         for item in self.__links:

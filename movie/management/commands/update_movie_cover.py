@@ -6,14 +6,25 @@ from common.utils import Image
 import os
 from django.core.files import File
 
+
+def save_image(obj, lst_images):
+    for image in lst_images:
+        try:
+            d = quote(image, safe='/:?=&')
+
+            result = urllib.request.urlretrieve(d)
+            obj.cover.save(os.path.basename(str(image).split("/")[-1]), File(open(result[0], 'rb')))
+            print(f"save image for {obj.title}")
+            return
+        except:
+            pass
+
+
 class Command(BaseCommand):
     help = 'update movie cover'
 
     def handle(self, *args, **options):
 
-        for i in Film.objects.all()[:5]:
-            b = Image("bing", {"query": i.title, "limit": 1}).find_images_link()
-            d = b[0]
-            d = quote(d, safe='/:?=&')
-            result = urllib.request.urlretrieve(d)
-            i.cover.save(os.path.basename(d[0]), File(open(result[0], 'rb')))
+        for i in Film.objects.filter(cover=""):
+            images = Image("bing", {"query": f"{i.title} {i.release_year} movie cover", "limit": 3}).find_images_link()
+            save_image(i, images)

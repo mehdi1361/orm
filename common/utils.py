@@ -86,12 +86,12 @@ class Bing:
                                 return
                             self.__links.append(item)
                     except Exception as e:
-                        pass
+                        raise e
 
                 self.page_counter += 1
 
             except Exception as e:
-                pass
+                raise e
 
     def __find_similar_link(self, link):
         for item in self.__links:

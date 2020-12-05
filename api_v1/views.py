@@ -10,6 +10,11 @@ from base.models import Language
 from api_v1.seriailizers.base_serializer import LanguageSerializer
 from movie.models import Film
 from api_v1.seriailizers.movie_serializer import FilmSerializer
+import redis
+
+from common.decorators import cache
+
+r = redis.Redis(host='127.0.0.1', port=6379)
 
 
 @api_view()
@@ -19,6 +24,7 @@ def get_date(request):
     return Response(serializer.data, status=status.HTTP_200_OK)
 
 @api_view()
+@cache()
 def list_country(request):
     c = Country.objects.all()
     s = CountrySerializer(c, many=True)
@@ -54,12 +60,13 @@ def get_city_country(request, country):
         return Response(status=404)
 
 @api_view()
+@cache()
 def list_category(request):
     c = Category.objects.all()
     s = CategorySerializer(c, many=True)
     return Response(s.data, status=status.HTTP_200_OK)
-
 @api_view()
+@cache()
 def list_language(request):
     c = Language.objects.all()
     s = LanguageSerializer(c, many=True)
@@ -97,6 +104,7 @@ def get_film_category(request, pk, page):
 
 @api_view(['GET'])
 def get_film_actor(request, pk, page):
+
     f = (page-1) * 30
     d = page * 30
     query_set = Film.objects.filter(filmactor=pk)[f:d]

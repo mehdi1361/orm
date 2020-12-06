@@ -47,6 +47,7 @@ pyparsing==2.4.7
 pytest==6.1.1
 pytest-django==3.10.0
 pytz==2020.1
+redis==3.5.3
 requests==2.25.0
 rfc3986==1.4.0
 six==1.15.0

@@ -16,7 +16,7 @@ def save_image(obj, lst_images):
             obj.cover.save(os.path.basename(str(image).split("/")[-1]), File(open(result[0], 'rb')))
             print(f"save image for {obj.title}")
             return
-        except:
+        except d:
             pass
 
 

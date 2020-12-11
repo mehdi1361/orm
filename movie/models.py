@@ -123,6 +123,3 @@ def create_comment(sender, instance, **kwargs):
     f = Film.objects.get(pk=c.film.id)
     f.rental_rate = Comment.objects.filter(film_id=c.film.id).aggregate(Avg('rate'))['rate__avg']
     f.save()
-
-
-# post_save.connect(create_comment, sender=Comment)

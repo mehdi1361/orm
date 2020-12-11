@@ -5,6 +5,7 @@ from django.db import connection
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.db.models import Avg
+from django.dispatch import receiver
 
 class Director(Base):
     name = models.CharField(max_length=50, unique=True)
@@ -116,13 +117,12 @@ class Comment(Base):
     film = models.ForeignKey(Film, on_delete=models.CASCADE, related_name='user_comments')
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='film_comments')
 
-
+@receiver(post_save, sender=Comment)
 def create_comment(sender, instance, **kwargs):
-
     c = Comment.objects.get(pk=instance.id)
     f = Film.objects.get(pk=c.film.id)
     f.rental_rate = Comment.objects.filter(film_id=c.film.id).aggregate(Avg('rate'))['rate__avg']
     f.save()
 
 
-post_save.connect(create_comment, sender=Comment)
+# post_save.connect(create_comment, sender=Comment)

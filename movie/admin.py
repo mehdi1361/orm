@@ -1,5 +1,5 @@
 from django.contrib import admin
-from movie.models import Film, Actor
+from movie.models import Film, Actor, Comment
 
 
 @admin.register(Film)
@@ -11,3 +11,8 @@ class FilmAdmin(admin.ModelAdmin):
 class ActorAdmin(admin.ModelAdmin):
     list_display = ('name', )
     list_filter = ('last_update', )
+
+@admin.register(Comment)
+class Actorcomment(admin.ModelAdmin):
+    list_display = ('rate', 'description')
+    list_filter = ('rate', 'description')

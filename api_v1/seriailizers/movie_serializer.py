@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from movie.models import Film, FilmActor, FilmCategory
+from movie.models import Film, FilmActor, FilmCategory, Comment
 
 class FilmActorSerializer(serializers.ModelSerializer):
     id = serializers.ReadOnlyField(source='actor.id')
@@ -31,3 +31,11 @@ class FilmSerializer(serializers.ModelSerializer):
         fields = ['title', 'description', 'release_year',
                   'rental_duration', 'rental_rate', 'length', 'director_name', 'actor_name',
                   'replacement_cost', 'rating', 'cover', 'language_name', 'fa_title', 'categores']
+
+class CommentSerializer(serializers.ModelSerializer):
+    film_title = serializers.CharField(source='Film.title')
+    user_username = serializers.CharField(source='User.username')
+
+    class Meta:
+        model = Comment
+        fields = ['description', 'rate', 'film_title', 'user_username ']

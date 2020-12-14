@@ -11,7 +11,6 @@ from api_v1.seriailizers.base_serializer import LanguageSerializer
 from movie.models import Film
 from api_v1.seriailizers.movie_serializer import FilmSerializer
 import redis
-
 from common.decorators import cache
 
 r = redis.Redis(host='127.0.0.1', port=6379)
@@ -24,12 +23,12 @@ def get_date(request):
     return Response(serializer.data, status=status.HTTP_200_OK)
 
 @api_view()
-@cache()
+@cache(time=2)
 def list_country(request):
     c = Country.objects.all()
     s = CountrySerializer(c, many=True)
     return Response(s.data, status=status.HTTP_200_OK,)
-
+@cache(time=2)
 @api_view()
 def get_country(request, pk):
 
@@ -41,7 +40,9 @@ def get_country(request, pk):
     except Country.DoesNotExist:
         return Response(status=404)
 
+
 @api_view()
+@cache(time=2)
 def get_city(request, pk):
     try:
         c = City.objects.get(pk=pk)
@@ -51,6 +52,7 @@ def get_city(request, pk):
         return Response(status=404)
 
 @api_view()
+@cache(time=2)
 def get_city_country(request, country):
     try:
         c = City.objects.filter(country__country=country)
@@ -60,19 +62,20 @@ def get_city_country(request, country):
         return Response(status=404)
 
 @api_view()
-@cache()
+@cache(time=20)
 def list_category(request):
     c = Category.objects.all()
     s = CategorySerializer(c, many=True)
     return Response(s.data, status=status.HTTP_200_OK)
 @api_view()
-@cache()
+@cache(time=20)
 def list_language(request):
     c = Language.objects.all()
     s = LanguageSerializer(c, many=True)
     return Response(s.data, status=status.HTTP_200_OK)
 
 @api_view()
+@cache(time=20)
 def get_language(request, pk):
     try:
         c = Language.objects.get(pk=pk)
@@ -82,6 +85,7 @@ def get_language(request, pk):
         return Response(status=404)
 
 @api_view(['GET'])
+@cache(time=20)
 def get_film(request, page):
     f = (page-1) * 30
     d = page * 30
@@ -91,6 +95,7 @@ def get_film(request, page):
 
 
 @api_view(['GET'])
+@cache(time=20)
 def get_film_category(request, pk, page):
     f = (page - 1) * 30
     d = page * 30
@@ -103,6 +108,7 @@ def get_film_category(request, pk, page):
 
 
 @api_view(['GET'])
+@cache(time=20)
 def get_film_actor(request, pk, page):
 
     f = (page-1) * 30

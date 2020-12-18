@@ -116,3 +116,9 @@ def get_film_actor(request, pk, page):
         return Response(s.data, status=status.HTTP_200_OK)
     else:
         return Response(status=404)
+
+@api_view()
+def get_top(request, top):
+    query_set = Film.objects.order_by('-rental_rate')[0:top]
+    s = FilmSerializer(query_set, many=True)
+    return Response(s.data, status=status.HTTP_200_OK)

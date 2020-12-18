@@ -12,5 +12,6 @@ urlpatterns = [
     path('base/language/<int:pk>', views.get_language),
     path('movie/film/<int:page>', views.get_film),
     path('movie/actor/film/<int:pk>/<int:page>', views.get_film_actor),
-    path('movie/category/film/<int:pk>/<int:page>', views.get_film_category)
+    path('movie/category/film/<int:pk>/<int:page>', views.get_film_category),
+    path('movie/top/<int:top>', views.get_top)
 ]

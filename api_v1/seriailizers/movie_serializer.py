@@ -32,6 +32,7 @@ class FilmSerializer(serializers.ModelSerializer):
                   'rental_duration', 'rental_rate', 'length', 'director_name', 'actor_name',
                   'replacement_cost', 'rating', 'cover', 'language_name', 'fa_title', 'categores']
 
+
 class CommentSerializer(serializers.ModelSerializer):
     film_title = serializers.CharField(source='Film.title')
     user_username = serializers.CharField(source='User.username')

@@ -1,6 +1,5 @@
 from datetime import datetime
-from rest_framework.decorators import api_view
-from rest_framework.response import Response
+from rest_framework.decorators import api_view, permission_classes
 from .seriailizers.base_serializer import DateSerializer
 from rest_framework import status
 from base.models import Country, City, Category
@@ -11,6 +10,9 @@ from api_v1.seriailizers.base_serializer import LanguageSerializer
 from movie.models import Film
 from api_v1.seriailizers.movie_serializer import FilmSerializer
 from common.decorators import cache
+from api_v1.seriailizers.base_serializer import UserSerializer
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
 
 @api_view()
 def get_date(request):
@@ -121,4 +123,12 @@ def get_film_actor(request, pk, page):
 def get_top(request, top):
     query_set = Film.objects.order_by('-rental_rate')[0:top]
     s = FilmSerializer(query_set, many=True)
+    return Response(s.data, status=status.HTTP_200_OK)
+
+@api_view(['GET'])
+# @authentication_classes([SessionAuthentication, BasicAuthentication])
+@permission_classes([IsAuthenticated])
+def user_data(request):
+    quary_set = request.user
+    s = UserSerializer(quary_set)
     return Response(s.data, status=status.HTTP_200_OK)

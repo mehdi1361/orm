@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.db.models import Avg
 from django.dispatch import receiver
-
+from django.conf import settings
 class Director(Base):
     name = models.CharField(max_length=50, unique=True)
 
@@ -33,11 +33,15 @@ class Film(Base):
     replacement_cost = models.DecimalField(max_digits=5, decimal_places=2, default=19.99)
     rating = models.CharField(max_length=5, choices=RATING_CHOICES, default='R')
     last_update = models.DateTimeField()
-    cover = models.ImageField(upload_to='media/cover', null=True)
+    cover = models.ImageField(upload_to='cover', null=True)
     category = models.ManyToManyField(Category, through="FilmCategory")
     fa_title = models.CharField(max_length=100, null=True)
     fa_description = models.TextField(null=True)
     director = models.ForeignKey(Director, on_delete=models.CASCADE, null=True)
+
+    @property
+    def cover_link(self):
+        return f"{settings.IMAGE_URL_SERVE}{settings.MEDIA_URL}{self.cover}"
 
     def save(self, *args, **kwargs):
         self.last_update = timezone.now()

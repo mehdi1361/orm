@@ -26,11 +26,8 @@ urlpatterns = [
     path('api/v1/', include('api_v1.urls')),
     path('', index),
     path('api/v1/', include('api_v1.urls')),
+
     path('api/v1/', include('api_v1.urls')),
     path('api-token-auth/', obtain_jwt_token),
     path('api-token-refresh/', refresh_jwt_token),
-]
-
-if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL,
-                          document_root=settings.MEDIA_ROOT)
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

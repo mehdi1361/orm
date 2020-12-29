@@ -1,0 +1,40 @@
+@startuml
+skinparam linetype ortho
+
+class Base {
+  +Datetime created_date
+  +DateTime updated_date
+}
+
+class Film {
+   +CharField title
+   +Text description
+   +smallInteger release_year
+   +smallInteger rental_duration
+   +decimal rental_rate
+   +smallInteger length
+   +decimal replacement_cost
+   +char rating
+   +datetime last_update
+   +text special_features
+   +tsvector fulltext
+   +image cover
+   +save() override save
+}
+
+class Comment {
+   +Text description
+   +Integer rate
+}
+
+class DjangoUser {
+   +CharField username
+   +CharField password
+}
+
+Base <|-right-Film
+Base <|-up-Comment
+Film ||--|{ Comment
+DjangoUser ||--|{ Comment
+
+@enduml

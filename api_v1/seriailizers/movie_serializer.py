@@ -30,7 +30,7 @@ class FilmSerializer(serializers.ModelSerializer):
         model = Film
         fields = ['title', 'description', 'release_year',
                   'rental_duration', 'rental_rate', 'length', 'director_name', 'actor_name',
-                  'replacement_cost', 'rating', 'cover', 'language_name', 'fa_title', 'categores']
+                  'replacement_cost', 'rating', 'cover', 'language_name', 'fa_title', 'categores', 'cover_link']
 
 
 class CommentSerializer(serializers.ModelSerializer):

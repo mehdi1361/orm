@@ -2,6 +2,7 @@ from rest_framework import serializers
 from base.models import Country
 from base.models import City, Category, Language
 from movie.models import Director
+from user.models import User
 
 
 class DateSerializer(serializers.Serializer):
@@ -43,3 +44,9 @@ class DirectorSerilaizer(serializers.ModelSerializer):
     class Meta:
         model = Director
         fields = ['id', 'name']
+
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['id', 'username', 'email',
+                  'first_name', 'last_name', 'is_active']

@@ -1,7 +1,9 @@
 from datetime import datetime
-from rest_framework.decorators import api_view, permission_classes
+
+from rest_framework.authentication import SessionAuthentication, BasicAuthentication
+from rest_framework.decorators import api_view, permission_classes, authentication_classes
 from .seriailizers.base_serializer import DateSerializer
-from rest_framework import status
+from rest_framework import status, permissions
 from base.models import Country, City, Category
 from api_v1.seriailizers.base_serializer import CountrySerializer, CitySerializer
 from api_v1.seriailizers.base_serializer import CityCountrserializer, CategorySerializer
@@ -119,7 +121,9 @@ def get_film_actor(request, pk, page):
     else:
         return Response(status=404)
 
+
 @api_view()
+@cache(cache_time=1 * 3600 * 24)
 def get_top(request, top):
     query_set = Film.objects.order_by('-rental_rate')[0:top]
     s = FilmSerializer(query_set, many=True)

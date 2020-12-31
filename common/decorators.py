@@ -1,4 +1,3 @@
-import redis
 from common.custom_redis import CustomCashe
 from rest_framework.response import Response
 from rest_framework import status
@@ -12,8 +11,6 @@ def cache(cache_time):
 
         def cash_reload(*args, **kwargs):
             r = CustomCashe()
-            # result = r.get(f'lst_{func.__name__}')
-
             result = r.get(f'lst_{func.__name__}_{"_".join([f"{k}_{v}" for k, v in kwargs.items()])}')
             if result:
 

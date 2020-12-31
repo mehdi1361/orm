@@ -1,9 +1,8 @@
 from datetime import datetime
 
-from rest_framework.authentication import SessionAuthentication, BasicAuthentication
-from rest_framework.decorators import api_view, permission_classes, authentication_classes
+from rest_framework.decorators import api_view, permission_classes
 from .seriailizers.base_serializer import DateSerializer
-from rest_framework import status, permissions
+from rest_framework import status
 from base.models import Country, City, Category
 from api_v1.seriailizers.base_serializer import CountrySerializer, CitySerializer
 from api_v1.seriailizers.base_serializer import CityCountrserializer, CategorySerializer

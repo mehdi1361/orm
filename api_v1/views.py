@@ -129,7 +129,6 @@ def get_top(request, top):
     return Response(s.data, status=status.HTTP_200_OK)
 
 @api_view(['GET'])
-# @authentication_classes([SessionAuthentication, BasicAuthentication])
 @permission_classes([IsAuthenticated])
 def user_data(request):
     quary_set = request.user

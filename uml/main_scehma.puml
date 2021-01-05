@@ -5,7 +5,7 @@ class Base {
   +DateTime updated_date
 }
 class LocalConf {
-  +CharField fa_name attr=>length=50 ,null=True
+  +CharField() fa_name attr=>length=50 ,null=True
 }
 
 note top of LocalConf : add fa_name field for save farsi text .

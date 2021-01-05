@@ -8,7 +8,7 @@ const App = {
         switch (window.location.hash) {
             case "#home":
                 initController.init();
-                // break
+                break;
             default:
                 console.log("exit...");
         }

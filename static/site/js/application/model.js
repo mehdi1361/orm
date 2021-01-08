@@ -125,17 +125,16 @@ class BigCard {
         const b2 = document.createElement('button');
         b2.className = "card__favorite";
 
-        const p = new PathObject(
-            'M352.92,80C288,80,256,144,256,144s-32-64-96.92-64C106.32,80,64.54,124.14,64,176.81c-1.1,109.33,86.73,187.08,183,252.42a16,16,0,0,0,18,0c96.26-65.34,184.09-143.09,183-252.42C447.46,124.14,405.68,80,352.92,80Z',
-            {
-                "fill": "none",
-                "stroke-linecap": "round",
-                "stroke-linejoin": "round",
-                "stroke-width": "32px"
-            }
-        )
-
-        const svgNode = new SvgObject("512", "512", "0 0 512 512", [p])
+        const svgNode = new SvgObject("512", "512", "0 0 512 512", [
+            new PathObject(
+                'M352.92,80C288,80,256,144,256,144s-32-64-96.92-64C106.32,80,64.54,124.14,64,176.81c-1.1,109.33,86.73,187.08,183,252.42a16,16,0,0,0,18,0c96.26-65.34,184.09-143.09,183-252.42C447.46,124.14,405.68,80,352.92,80Z',
+                {
+                    "fill": "none",
+                    "stroke-linecap": "round",
+                    "stroke-linejoin": "round",
+                    "stroke-width": "32px"
+                })
+        ])
 
         b2.append(svgNode.render());
 

@@ -112,7 +112,6 @@ class BigCard {
         el.append(b);
         return el;
     }
-
     getAction() {
         const el = document.createElement('div');
         el.className = "card__actions";

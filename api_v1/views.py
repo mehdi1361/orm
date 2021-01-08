@@ -1,5 +1,4 @@
 from datetime import datetime
-
 from rest_framework.decorators import api_view, permission_classes
 from .seriailizers.base_serializer import DateSerializer
 from rest_framework import status

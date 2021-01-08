@@ -15,4 +15,5 @@ urlpatterns = [
     path('movie/category/film/<int:pk>/<int:page>', views.get_film_category),
     path('movie/top/<int:top>', views.get_top),
     path('user/data/', views.user_data),
+    path('mobo/login', views.generate_otp)
 ]

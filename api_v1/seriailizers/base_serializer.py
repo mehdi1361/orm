@@ -50,3 +50,8 @@ class UserSerializer(serializers.ModelSerializer):
         model = User
         fields = ['id', 'username', 'email',
                   'first_name', 'last_name', 'is_active']
+
+class UserLog(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['id', 'username']

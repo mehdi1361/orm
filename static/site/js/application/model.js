@@ -93,9 +93,23 @@ class BigCard {
         const el = document.createElement('div');
         el.className = "card__price";
 
-        const txt = document.createTextNode(`<span>5600 تومان</span><s>4300 تومان</s><b>30% تخفیف</b>`);
-        el.append(txt);
+        const span = document.createElement('span');
+        const s = document.createElement('s');
+        const b = document.createElement('b');
 
+        // const txt = document.createTextNode(`<span>5600 تومان</span><s>4300 تومان</s><b>30% تخفیف</b>`);
+        const spanTxt = document.createTextNode("5600 تومان");
+        span.append(spanTxt);
+
+        const sTxt = document.createTextNode('4300 تومان');
+        s.append(sTxt);
+
+        const bTxt = document.createTextNode("30% تخفیف");
+        b.append(bTxt);
+
+        el.append(span);
+        el.append(s);
+        el.append(b);
         return el;
     }
 
@@ -109,19 +123,21 @@ class BigCard {
         el.append(b1);
 
         const b2 = document.createElement('button');
-        const svgNode = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-        // svgNode.width = '512';
-        // svgNode.height = '512';
-        // svgNode.viewBox = '0 0 512 512';
+        b2.className = "card__favorite";
 
-        const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-        // path.setAttribute('d', 'M352.92,80C288,80,256,144,256,144s-32-64-96.92-64C106.32,80,64.54,124.14,64,176.81c-1.1,109.33,86.73,187.08,183,252.42a16,16,0,0,0,18,0c96.26-65.34,184.09-143.09,183-252.42C447.46,124.14,405.68,80,352.92,80Z');
-        path.style.fill = "none";
-        path.style.strokeLinecap = "round";
-        path.style.strokeLinejoin = "round";
-        path.style.strokeWidth = "32px";
-        svgNode.append(path);
-        b2.append(svgNode);
+        const p = new PathObject(
+            'M352.92,80C288,80,256,144,256,144s-32-64-96.92-64C106.32,80,64.54,124.14,64,176.81c-1.1,109.33,86.73,187.08,183,252.42a16,16,0,0,0,18,0c96.26-65.34,184.09-143.09,183-252.42C447.46,124.14,405.68,80,352.92,80Z',
+            {
+                "fill": "none",
+                "stroke-linecap": "round",
+                "stroke-linejoin": "round",
+                "stroke-width": "32px"
+            }
+        )
+
+        const svgNode = new SvgObject("512", "512", "0 0 512 512", [p])
+
+        b2.append(svgNode.render());
 
         el.append(b2);
 

@@ -29,5 +29,6 @@ urlpatterns = [
 
     path('api/v1/', include('api_v1.urls')),
     path('login/', obtain_jwt_token),
+    path('api-token/', obtain_jwt_token),
     path('api-token-refresh/', refresh_jwt_token),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

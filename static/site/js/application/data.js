@@ -15,8 +15,6 @@ class Data {
           request.open('GET', `${url}/api/v1/movie/top/${counter}`, false);
           request.send(null);
           if (request.status === 200) {
-              console.log(typeof JSON.parse(request.responseText));
-              console.log(JSON.parse(request.responseText));
               return JSON.parse(request.responseText);
           }
 

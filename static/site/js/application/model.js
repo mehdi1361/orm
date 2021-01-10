@@ -14,7 +14,6 @@ class Category {
 class BigCard {
     constructor(data) {
         this.data = data;
-        console.log(data);
     }
     getWrapper() {
         const el = document.createElement('div');
@@ -36,7 +35,6 @@ class BigCard {
 
         const a = document.createElement('a');
         a.href = "details.html";
-        // a.text = "فیلم سینمایی tenet 2020";
         a.text = `${this.data.title}`;
 
         h3.append(a);
@@ -46,6 +44,7 @@ class BigCard {
 
     }
     getData() {
+        console.log(this.data);
         const ul = document.createElement('ul');
         ul.className = "card__list";
 
@@ -54,7 +53,7 @@ class BigCard {
         const txt = document.createTextNode("انتشار :");
         span.append(txt)
 
-        const dateStr = document.createTextNode("30.11.2018");
+        const dateStr = document.createTextNode(`${this.data.release_year}`);
         li1.append(span);
         li1.append(dateStr);
 
@@ -63,7 +62,9 @@ class BigCard {
         const li2 = document.createElement('li');
         const spanGenre = document.createElement("span");
         const txtGenreSpan = document.createTextNode("ژانر ها :");
-        const txtGenre = document.createTextNode("علمی و تخیلی ، اکشن ، دلهره آور");
+        const txtGenre = document.createTextNode(this.data.categores.map(function (elem) {
+            return elem.name
+        }).join(","));
 
         spanGenre.append(txtGenreSpan);
 
@@ -80,8 +81,8 @@ class BigCard {
         const img = document.createElement('img');
         // img.src = '../static/site/img/cards/4.jpg';
         img.src = this.data.cover_link;
-        img.width = 350;
-        img.height = 380;
+        img.width = 380;
+        img.height = 310;
         a1.append(img)
         return a1;
     }
@@ -104,7 +105,7 @@ class BigCard {
         const b = document.createElement('b');
 
         // const txt = document.createTextNode(`<span>5600 تومان</span><s>4300 تومان</s><b>30% تخفیف</b>`);
-        const spanTxt = document.createTextNode("5600 تومان");
+        const spanTxt = document.createTextNode(`${this.data.replacement_cost}تومان`);
         span.append(spanTxt);
 
         const sTxt = document.createTextNode('4300 تومان');
@@ -161,10 +162,7 @@ class BigCardScene {
     constructor() {
         this.classes = ["owl-carousel", "section__carousel", "section__carousel--big"];
         this.fetchData =  new Data();
-
     }
-
-
 
     render() {
         const el = document.createElement('div');
@@ -175,7 +173,6 @@ class BigCardScene {
         let lstF = this.fetchData.getTop(5);
         lstF.forEach(function (item) {
              let card = new BigCard(item);
-             console.log(card.render());
              el.append(card.render());
         })
         return el;

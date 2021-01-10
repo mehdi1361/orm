@@ -12,7 +12,9 @@ class Category {
 }
 
 class BigCard {
-    constructor() {
+    constructor(data) {
+        this.data = data;
+        console.log(data);
     }
     getWrapper() {
         const el = document.createElement('div');
@@ -34,7 +36,8 @@ class BigCard {
 
         const a = document.createElement('a');
         a.href = "details.html";
-        a.text = "فیلم سینمایی tenet 2020";
+        // a.text = "فیلم سینمایی tenet 2020";
+        a.text = `${this.data.title}`;
 
         h3.append(a);
         el.append(h3);
@@ -75,7 +78,10 @@ class BigCard {
         const a1 = document.createElement('a');
         a1.className = "card__cover";
         const img = document.createElement('img');
-        img.src = '../static/site/img/cards/4.jpg';
+        // img.src = '../static/site/img/cards/4.jpg';
+        img.src = this.data.cover_link;
+        img.width = 350;
+        img.height = 380;
         a1.append(img)
         return a1;
     }
@@ -154,14 +160,24 @@ class BigCard {
 class BigCardScene {
     constructor() {
         this.classes = ["owl-carousel", "section__carousel", "section__carousel--big"];
+        this.fetchData =  new Data();
+
     }
+
+
 
     render() {
         const el = document.createElement('div');
         el.id = "carousel0";
         el.classList.add(...this.classes);
-        const card = new BigCard();
-        el.append(card.render());
+
+
+        let lstF = this.fetchData.getTop(5);
+        lstF.forEach(function (item) {
+             let card = new BigCard(item);
+             console.log(card.render());
+             el.append(card.render());
+        })
         return el;
     }
 

@@ -8,7 +8,6 @@ class PathObject {
         pathObj.setAttribute("d", this.d);
         if (typeof this.styles == "object") {
             for (let [key, value] of Object.entries(this.styles)) {
-                console.log(key, value);
                 pathObj.style.setProperty(key, value);
             }
         }

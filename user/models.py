@@ -67,3 +67,13 @@ class Sms(Base):
     message = models.CharField(max_length=150, choices=state_choices)
     phone = models.ForeignKey(Phone, on_delete=models.CASCADE)
     template = models.ForeignKey(Template, on_delete=models.CASCADE)
+
+class Verification(Base):
+    verfication = models.CharField(max_length=50)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    device = models.CharField(max_length=150)
+    active = models.BooleanField(default=False)
+
+    def save(self, *args, **kwargs):
+        Verification.objects.filter(user=self.user, device=self.device).update(active=False)
+        super(Verification, self).save(*args, **kwargs)

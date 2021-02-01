@@ -12,6 +12,10 @@ class EmailVerification(VarificationInterface):
 
     def send(self):
         subject = 'security code'
+        print("valllue:", subject
+
+
+              )
         message = f'the security code is {self.verification}'
         email_from = settings.EMAIL_HOST_USER
         recipient_list = [self.email, ]

@@ -3,8 +3,9 @@ import random
 from user.models import Verification
 import re
 from common.user.verification import Veriffy, EmailVerification, MobileVerification
+from base.interface import VarificationInterface
 
-class VerifactionUser:
+class VerifactionUser(VarificationInterface):
     def __init__(self, **kwargs):
 
         self.list_key = list(kwargs.keys())
@@ -32,4 +33,4 @@ class VerifactionUser:
                 obg.finde_send(MobileVerification(v.verfication, self.list_value[1]))
 
         else:
-            raise Exception("please enter phone number or email address")
+            raise Exception("please enter mobile number or email address")

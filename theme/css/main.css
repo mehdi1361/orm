@@ -1314,13 +1314,15 @@ li.breadcrumb__item--active:hover {
 .card__cover {
     position: relative;
     display: block;
+
 }
-.card__cover img {
-    width: 100%;
-    position: relative;
-    z-index: 1;
-    transition: 0.5s;
-}
+/*.card__cover img {*/
+/*    width: 30000cm;*/
+/*    height: 4cm;*/
+/*    position: relative;*/
+/*    z-index: 1;*/
+/*    transition: 0.5s;*/
+/*}*/
 .card__cover:hover img {
     opacity: 0.6;
 }

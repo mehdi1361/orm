@@ -12,7 +12,6 @@ const App = {
             default:
                 console.log("exit...");
         }
-        console.log("hash is", window.location.hash);
     }
 }
 

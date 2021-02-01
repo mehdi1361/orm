@@ -142,6 +142,7 @@ def user_data(request):
 def log_in(request):
     data = JSONParser().parse(request)
     try:
+
         if len(data['id']) == 18:
             v = VerifactionUser(**data)
             v.send()

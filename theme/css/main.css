@@ -1374,6 +1374,7 @@ li.breadcrumb__item--active:hover {
     justify-content: center;
     align-items: flex-start;
     padding: 15px;
+    overflow-wrap: break-word;
 }
 .card__title h3 {
     overflow: hidden;
@@ -1387,9 +1388,13 @@ li.breadcrumb__item--active:hover {
     font-size: 16px;
     font-weight: 400;
     transition: 0.5s;
+    overflow-wrap: break-word;
+
 }
 .card__title h3 a {
     color: #fff;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
 }
 .card__title h3 a:hover {
     color: #a782e9;
@@ -1407,6 +1412,8 @@ li.breadcrumb__item--active:hover {
     color: #fff;
     letter-spacing: 0.5px;
     line-height: 100%;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
 }
 .card__title span s {
     font-size: 12px;
@@ -1414,6 +1421,8 @@ li.breadcrumb__item--active:hover {
     margin-right: 10px;
     font-weight: 400;
     line-height: 100%;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
 }
 .card__actions {
     display: flex;

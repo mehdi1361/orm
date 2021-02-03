@@ -15,7 +15,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.parsers import JSONParser
 from django.views.decorators.csrf import csrf_exempt
-from common.proxy.user import VerifactionUser
+from common.proxy.user import VerificationUser
 
 @api_view()
 def get_date(request):
@@ -144,7 +144,7 @@ def log_in(request):
     try:
 
         if len(data['id']) == 18:
-            v = VerifactionUser(**data)
+            v = VerificationUser(**data)
             v.send()
             return Response(data, status=status.HTTP_200_OK)
         else:

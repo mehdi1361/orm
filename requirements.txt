@@ -28,6 +28,7 @@ idna==2.10
 iniconfig==1.0.1
 isort==5.6.4
 jedi==0.17.2
+kavenegar==1.1.2
 lazy-object-proxy==1.4.3
 Markdown==3.3.1
 mccabe==0.6.1
@@ -37,7 +38,7 @@ pickleshare==0.7.5
 Pillow==7.2.0
 pluggy==0.13.1
 prompt-toolkit==3.0.7
-psycopg2-binary==2.8.4
+psycopg2-binary==2.8.6
 py==1.9.0
 pycodestyle==2.6.0
 pyflakes==2.2.0

@@ -13,6 +13,9 @@ from common.decorators import cache
 from api_v1.seriailizers.base_serializer import UserSerializer
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
+from rest_framework.parsers import JSONParser
+from django.views.decorators.csrf import csrf_exempt
+from common.proxy.user import VerificationUser
 
 @api_view()
 def get_date(request):
@@ -133,3 +136,19 @@ def user_data(request):
     quary_set = request.user
     s = UserSerializer(quary_set)
     return Response(s.data, status=status.HTTP_200_OK)
+
+@csrf_exempt
+@api_view(['POST'])
+def log_in(request):
+    data = JSONParser().parse(request)
+    try:
+
+        if len(data['id']) == 18:
+            v = VerificationUser(**data)
+            v.send()
+            return Response(data, status=status.HTTP_200_OK)
+        else:
+            raise Exception("the lenth of id not equal 18")
+
+    except Exception as e:
+        return Response({'id': 404, 'massage': e.args[0]}, status=400)

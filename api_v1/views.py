@@ -156,7 +156,10 @@ def log_in(request):
 @api_view()
 @cache(cache_time=1 * 3600 * 24)
 def get_top_category(request, category, top):
+
     query_set = Film.objects.filter(category__name=category).order_by('-rental_rate')[0:top]
-    # q = query_set.objects.order_by('-rental_rate')[0:top]
-    s = FilmSerializer(query_set, many=True)
-    return Response(s.data, status=status.HTTP_200_OK)
+    if query_set:
+        s = FilmSerializer(query_set, many=True)
+        return Response(s.data, status=status.HTTP_200_OK)
+    else:
+        return Response(status=404)

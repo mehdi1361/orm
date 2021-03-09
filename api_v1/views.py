@@ -182,8 +182,5 @@ def login_verify(request):
                 auth.login(request, user)
                 return Response({'username': data["dev_id"], 'token': api_settings.JWT_ENCODE_HANDLER(api_settings.JWT_PAYLOAD_HANDLER(user))})
 
-        else:
-            raise Exception("the username or code is incorrect")
-
-    except Exception as e:
-        return Response({'id': 404, 'massage': e.args[0]}, status=400)
+    except Exception:
+        return Response({'id': 404, 'massage': "the username or code incorrect"})

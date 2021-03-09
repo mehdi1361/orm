@@ -85,7 +85,7 @@ class Verification(Base):
         u = User.objects.get(username=kwargs['dev_id'])
         v = Verification.objects.get(user=u, verification=kwargs["verify_code"], active=True)
 
-        if v:
+        if Verification.objects.get(user=u, verification=kwargs["verify_code"], active=True):
             v.active = False
             v.save()
             return True

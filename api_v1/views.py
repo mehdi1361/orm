@@ -16,6 +16,10 @@ from rest_framework.response import Response
 from rest_framework.parsers import JSONParser
 from django.views.decorators.csrf import csrf_exempt
 from common.proxy.user import VerificationUser
+from user.models import Verification
+from django.contrib import auth
+from rest_framework_jwt.settings import api_settings
+
 
 @api_view()
 def get_date(request):
@@ -163,3 +167,23 @@ def get_top_category(request, category, top):
         return Response(s.data, status=status.HTTP_200_OK)
     else:
         return Response(status=404)
+
+# @permission_classes([IsAuthenticated])
+@csrf_exempt
+@api_view(['POST'])
+def login_verify(request):
+    data = JSONParser().parse(request)
+
+    try:
+        if Verification.verify_test(**data):
+
+            user = auth.authenticate(request, username=data["dev_id"], password=data["dev_id"])
+            if user is not None:
+                auth.login(request, user)
+                return Response({'username': data["dev_id"], 'token': api_settings.JWT_ENCODE_HANDLER(api_settings.JWT_PAYLOAD_HANDLER(user))})
+
+        else:
+            raise Exception("the username or code is incorrect")
+
+    except Exception as e:
+        return Response({'id': 404, 'massage': e.args[0]}, status=400)

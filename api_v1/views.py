@@ -1,5 +1,5 @@
 from datetime import datetime
-from rest_framework.decorators import api_view, permission_classes
+from rest_framework.decorators import api_view, permission_classes, authentication_classes
 from .seriailizers.base_serializer import DateSerializer
 from rest_framework import status
 from base.models import Country, City, Category
@@ -19,7 +19,7 @@ from common.proxy.user import VerificationUser
 from user.models import Verification
 from django.contrib import auth
 from rest_framework_jwt.settings import api_settings
-
+from rest_framework.authentication import SessionAuthentication, BasicAuthentication
 
 @api_view()
 def get_date(request):
@@ -135,13 +135,14 @@ def get_top(request, top):
     return Response(s.data, status=status.HTTP_200_OK)
 
 @api_view(['GET'])
+@authentication_classes([SessionAuthentication, BasicAuthentication])
 @permission_classes([IsAuthenticated])
 def user_data(request):
     quary_set = request.user
     s = UserSerializer(quary_set)
     return Response(s.data, status=status.HTTP_200_OK)
 
-@csrf_exempt
+
 @api_view(['POST'])
 def log_in(request):
     data = JSONParser().parse(request)
@@ -168,7 +169,7 @@ def get_top_category(request, category, top):
     else:
         return Response(status=404)
 
-# @permission_classes([IsAuthenticated])
+
 @csrf_exempt
 @api_view(['POST'])
 def login_verify(request):

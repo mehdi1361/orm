@@ -16,5 +16,6 @@ urlpatterns = [
     path('movie/top/<int:top>', views.get_top),
     path('user/data/', views.user_data),
     path('user/login/', views.log_in),
-    path('movie/sci_fi/top/<slug:category>/<int:top>/', views.get_top_category)
+    path('movie/sci_fi/top/<slug:category>/<int:top>/', views.get_top_category),
+    path('user/verify', views.login_verify)
 ]

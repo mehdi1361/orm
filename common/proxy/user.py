@@ -20,8 +20,10 @@ class VerificationUser(VarificationInterface):
         if self.list_value[1][:3] in ["090", "091", "092", "093"] or re.search(regex, self.list_value[1]):
             v.verification = code
             v.device = self.list_key[1].lower()
-            u = User.objects.get_or_create(username=self.list_value[0], password=self.list_value[0])
-            v.user = u[0]
+            u, _ = User.objects.get_or_create(username=self.list_value[0])
+            u.set_password(self.list_value[0])
+            u.save()
+            v.user = u
             v.active = True
             v.save()
 

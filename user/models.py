@@ -79,3 +79,16 @@ class Verification(Base):
     def save(self, *args, **kwargs):
         Verification.objects.filter(user=self.user, device=self.device).update(active=False)
         super(Verification, self).save(*args, **kwargs)
+
+    @classmethod
+    def verify_test(cls, **kwargs):
+        u = User.objects.get(username=kwargs['dev_id'])
+        v = Verification.objects.get(user=u, verification=kwargs["verify_code"], active=True)
+
+        if Verification.objects.get(user=u, verification=kwargs["verify_code"], active=True):
+            v.active = False
+            v.save()
+            return True
+
+        else:
+            return False

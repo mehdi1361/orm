@@ -1,5 +1,5 @@
 from datetime import datetime
-from rest_framework.decorators import api_view, permission_classes
+from rest_framework.decorators import api_view, permission_classes, authentication_classes
 from .seriailizers.base_serializer import DateSerializer
 from rest_framework import status
 from base.models import Country, City, Category
@@ -16,6 +16,10 @@ from rest_framework.response import Response
 from rest_framework.parsers import JSONParser
 from django.views.decorators.csrf import csrf_exempt
 from common.proxy.user import VerificationUser
+from user.models import Verification
+from django.contrib import auth
+from rest_framework_jwt.settings import api_settings
+from rest_framework.authentication import SessionAuthentication, BasicAuthentication
 
 @api_view()
 def get_date(request):
@@ -131,13 +135,14 @@ def get_top(request, top):
     return Response(s.data, status=status.HTTP_200_OK)
 
 @api_view(['GET'])
+@authentication_classes([SessionAuthentication, BasicAuthentication])
 @permission_classes([IsAuthenticated])
 def user_data(request):
     quary_set = request.user
     s = UserSerializer(quary_set)
     return Response(s.data, status=status.HTTP_200_OK)
 
-@csrf_exempt
+
 @api_view(['POST'])
 def log_in(request):
     data = JSONParser().parse(request)
@@ -163,3 +168,20 @@ def get_top_category(request, category, top):
         return Response(s.data, status=status.HTTP_200_OK)
     else:
         return Response(status=404)
+
+
+@csrf_exempt
+@api_view(['POST'])
+def login_verify(request):
+    data = JSONParser().parse(request)
+
+    try:
+        if Verification.verify_test(**data):
+
+            user = auth.authenticate(request, username=data["dev_id"], password=data["dev_id"])
+            if user is not None:
+                auth.login(request, user)
+                return Response({'username': data["dev_id"], 'token': api_settings.JWT_ENCODE_HANDLER(api_settings.JWT_PAYLOAD_HANDLER(user))})
+
+    except Exception:
+        return Response({'id': 404, 'massage': "the username or code incorrect"})

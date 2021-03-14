@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'api_v1.apps.ApiV1Config',
     'server_side.apps.ServerSideConfig',
-    "api_v2.apps.APIV2ZConfig"
+    "api_v2.apps.APIV2ZConfig",
 ]
 
 

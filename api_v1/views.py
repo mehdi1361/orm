@@ -73,6 +73,7 @@ def list_category(request):
     c = Category.objects.all()
     s = CategorySerializer(c, many=True)
     return Response(s.data, status=status.HTTP_200_OK)
+
 @api_view()
 @cache(cache_time=1 * 3600 * 24)
 def list_language(request):

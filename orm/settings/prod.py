@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'api_v1.apps.ApiV1Config',
     'server_side.apps.ServerSideConfig',
+    "api_v2.apps.ApiV2Config",
 ]
 
 
@@ -50,8 +51,7 @@ REST_FRAMEWORK = {
     ),
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
-        # 'rest_framework.authentication.SessionAuthentication',
-        'rest_framework.authentication.BasicAuthentication',
+
     ),
 }
 

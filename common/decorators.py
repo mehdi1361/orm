@@ -3,12 +3,13 @@ from rest_framework.response import Response
 from rest_framework import status
 from datetime import timedelta
 import json
+import functools
 
 
 def cache(cache_time):
 
     def wrapper(func):
-
+        @functools.wraps(func)
         def cash_reload(*args, **kwargs):
             r = CustomCashe()
             result = r.get(f'lst_{func.__name__}_{"_".join([f"{k}_{v}" for k, v in kwargs.items()])}')

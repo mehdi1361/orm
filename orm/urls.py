@@ -19,7 +19,13 @@ from server_side.views import index
 from django.conf import settings
 from django.conf.urls.static import static
 from rest_framework_jwt.views import obtain_jwt_token, refresh_jwt_token
+from api_v2.view_set import CategoryViewSet
+from rest_framework.routers import DefaultRouter
 
+# creating Router object
+router = DefaultRouter()
+# Regisiter CategoryViewset with Router
+router.register('category_api', CategoryViewSet, basename="category")
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -30,4 +36,5 @@ urlpatterns = [
     path('api-token/', obtain_jwt_token),
     path('api-token-refresh/', refresh_jwt_token),
     path('api/v2/', include('api_v2.urls')),
+    path('api_view_set/', include(router.urls))
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
